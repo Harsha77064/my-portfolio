@@ -1,3 +1,4 @@
+
 export const profile = {
   name: "Harshith Killada",
   title: "AI Engineer | Machine Learning Specialist",
@@ -51,8 +52,8 @@ export const projects = [
     description:
       "An end-to-end NLP system built with LangChain and the Google Gemini API that processes 500+ page corpora and answers with exact citations. Outputs were checked for hallucinations, with structured prompt flows for accuracy.",
     tags: ["LangChain", "Gemini API", "GCP", "RAG"],
-    github: "", // add your repo link
-    live: "", // add a demo link if you have one
+        github: "",
+    live: "",
   },
   {
     title: "Lane Detection CNN",
