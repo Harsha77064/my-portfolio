@@ -1,21 +1,11 @@
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { profile, projects } from "./constants";
 
 export default function App() {
   return (
-    <div className="h-screen bg-black">
-      <h1 className="absolute z-10 w-full text-center text-3xl font-bold text-white mt-6">
-        Portfolio is working
-      </h1>
-      <Canvas camera={{ position: [0, 0, 5] }}>
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[3, 3, 3]} />
-        <mesh>
-          <boxGeometry />
-          <meshStandardMaterial color="hotpink" />
-        </mesh>
-        <OrbitControls />
-      </Canvas>
+    <div className="min-h-screen bg-black text-white p-10">
+      <h1 className="text-4xl font-bold">{profile.name}</h1>
+      <p className="text-white/70">{profile.title}</p>
+      <p className="mt-6">Projects loaded: {projects.length}</p>
     </div>
   );
 }
