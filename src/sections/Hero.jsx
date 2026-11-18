@@ -4,6 +4,8 @@ import { useGSAP } from "@gsap/react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, OrbitControls } from "@react-three/drei";
 import { profile } from "../constants";
+import { LOADER_SECONDS } from "../components/Loader";
+import DeveloperIllustration from "../components/DeveloperIllustration";
 
 gsap.registerPlugin(useGSAP);
 
@@ -36,12 +38,24 @@ export default function Hero() {
 
   useGSAP(
     () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      // Text comes in once the loading screen has gone
       gsap.from(".hero-text", {
         y: 40,
         opacity: 0,
         duration: 0.9,
         stagger: 0.15,
         ease: "power3.out",
+        delay: LOADER_SECONDS,
+      });
+      gsap.from(".hero-illustration", {
+        y: 40,
+        scale: 0.9,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        delay: LOADER_SECONDS + 0.2,
       });
     },
     { scope: root }
@@ -74,14 +88,24 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="h-[320px] md:h-[500px]">
-        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-          <ambientLight intensity={1.2} />
-          <directionalLight position={[3, 3, 3]} intensity={3} />
-          <pointLight position={[-3, -2, 2]} intensity={40} color="#38bdf8" />
-          <Shape />
-          <OrbitControls enableZoom={false} enablePan={false} />
-        </Canvas>
+      <div className="relative h-[380px] md:h-[600px]">
+        {/* Big rotating shape behind */}
+        <div className="absolute inset-0">
+          <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+            <ambientLight intensity={1.2} />
+            <directionalLight position={[3, 3, 3]} intensity={3} />
+            <pointLight position={[-3, -2, 2]} intensity={40} color="#38bdf8" />
+            <group position={[0, 0, -1]} scale={1.75}>
+              <Shape />
+            </group>
+            <OrbitControls enableZoom={false} enablePan={false} />
+          </Canvas>
+        </div>
+
+        {/* Cartoon developer in front */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <DeveloperIllustration className="hero-illustration w-[320px] drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)] md:w-[500px]" />
+        </div>
       </div>
     </section>
   );

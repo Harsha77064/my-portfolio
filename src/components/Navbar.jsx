@@ -4,7 +4,14 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 z-50 w-full bg-black/60 backdrop-blur">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-white">
-        <a href="#home" className="text-lg font-semibold">
+        <a href="#home" className="flex items-center gap-3 text-lg font-semibold">
+          <img
+            src={profile.avatar}
+            alt=""
+            width="36"
+            height="36"
+            className="h-9 w-9 shrink-0 rounded-full object-cover ring-2 ring-violet-400/60"
+          />
           {profile.name}
         </a>
         <ul className="hidden gap-6 md:flex">

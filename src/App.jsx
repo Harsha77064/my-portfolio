@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import Loader from "./components/Loader";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Experience from "./sections/Experience";
@@ -10,6 +11,7 @@ import Contact from "./sections/Contact";
 export default function App() {
   return (
     <div className="bg-black text-white">
+      <Loader />
       <Navbar />
       <Hero />
       <About />

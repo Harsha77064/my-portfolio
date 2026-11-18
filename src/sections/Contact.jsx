@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { profile } from "../constants";
+import DeveloperIllustration from "../components/DeveloperIllustration";
 
 const COOLDOWN_MS = 30000; // 30 seconds between successful sends
 
@@ -56,6 +57,16 @@ export default function Contact() {
 
       <div className="mt-10 grid gap-10 md:grid-cols-2">
         <div className="space-y-4">
+          <div className="mb-6 flex items-start gap-2">
+            <DeveloperIllustration
+              variant="waving"
+              title="Cartoon developer waving hello"
+              className="w-52 shrink-0 md:w-64"
+            />
+            <div className="relative mt-4 rounded-2xl rounded-bl-sm bg-violet-500/20 px-4 py-3 text-lg font-medium whitespace-nowrap text-white">
+              Let's talk <span aria-hidden="true">👋</span>
+            </div>
+          </div>
           <a href={`mailto:${profile.email}`} className="block text-lg hover:underline">
             {profile.email}
           </a>
