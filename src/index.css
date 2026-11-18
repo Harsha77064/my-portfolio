@@ -1,7 +1,41 @@
 @import "tailwindcss";
 
+/* Brand palette: deep navy "ink" base with violet + sky accents */
+@theme {
+  --color-ink: #0b0f1a;
+  --color-ink-soft: #111729;
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+}
+
+/* Soft colour glows behind the whole page */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 10% -10%, rgba(139, 92, 246, 0.2), transparent 60%),
+    radial-gradient(50rem 35rem at 100% 35%, rgba(56, 189, 248, 0.1), transparent 60%),
+    radial-gradient(55rem 40rem at 0% 105%, rgba(139, 92, 246, 0.12), transparent 60%);
+}
+
+/* Faint engineering grid that fades out toward the bottom */
+.page-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 75%);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -10,7 +10,8 @@ import Contact from "./sections/Contact";
 
 export default function App() {
   return (
-    <div className="bg-black text-white">
+    <div className="relative isolate text-white">
+      <div className="page-bg" aria-hidden="true" />
       <Loader />
       <Navbar />
       <Hero />

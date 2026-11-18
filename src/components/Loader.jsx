@@ -32,7 +32,7 @@ export default function Loader() {
     <div
       ref={root}
       aria-hidden="true"
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-5 bg-black"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-5 bg-ink"
     >
       <img
         src={profile.avatar}

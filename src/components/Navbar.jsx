@@ -2,7 +2,7 @@ import { navLinks, profile } from "../constants";
 
 export default function Navbar() {
   return (
-    <header className="fixed top-0 left-0 z-50 w-full bg-black/60 backdrop-blur">
+    <header className="fixed top-0 left-0 z-50 w-full border-b border-white/5 bg-ink/70 backdrop-blur">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-white">
         <a href="#home" className="flex items-center gap-3 text-lg font-semibold">
           <img
