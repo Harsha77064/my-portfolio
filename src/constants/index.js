@@ -51,18 +51,8 @@ export const projects = [
     year: "2024",
     description:
       "An end-to-end NLP system built with LangChain and the Google Gemini API that processes 500+ page corpora and answers with exact citations. Outputs were checked for hallucinations, with structured prompt flows for accuracy.",
-    tags: ["LangChain", "Gemini API", "GCP", "RAG"],
-        github: "",
-    live: "",
-  },
-  {
-    title: "Lane Detection CNN",
-    role: "Lead Developer",
-    year: "2024",
-    description:
-      "A deep learning model built with TensorFlow and OpenCV for real-time lane detection at 94%+ accuracy. Covered the full pipeline from data preprocessing to evaluation.",
-    tags: ["TensorFlow", "OpenCV", "CNN", "Python"],
-    github: "",
+    tags: ["LangChain", "Gemini API", "FAISS", "Streamlit", "GCP", "RAG"],
+    github: "https://github.com/Harsha77064/rag-chatbot",
     live: "",
   },
 ];
