@@ -10,3 +10,6 @@ logs
 !.vscode/extensions.json
 .idea
 .DS_Store
+
+# Claude Code local settings
+.claude/

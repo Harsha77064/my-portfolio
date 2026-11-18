@@ -6,9 +6,10 @@ export const profile = {
   email: "harshashk15@gmail.com",
   github: "https://github.com/Harsha77064",
   linkedin: "https://www.linkedin.com/in/harshith-killada/",
-  resume: "/Harshith-Killada-Resume.pdf",
-  photo: "/images/me.jpg",
-  avatar: "/images/avatar.jpg",
+  // BASE_URL is "/" locally and "/my-portfolio/" on GitHub Pages
+  resume: `${import.meta.env.BASE_URL}Harshith-Killada-Resume.pdf`,
+  photo: `${import.meta.env.BASE_URL}images/me.jpg`,
+  avatar: `${import.meta.env.BASE_URL}images/avatar.jpg`,
   summary:
     "AI Engineer with a B.Tech in Artificial Intelligence. I design, deploy and retrain machine learning models across Generative AI (Gemini, GPT-4) and classic NLP and deep learning, and I build scalable AI systems on GCP.",
 };
