@@ -18,7 +18,14 @@ function Shape() {
     <Float speed={2} floatIntensity={1.5}>
       <mesh ref={mesh}>
         <icosahedronGeometry args={[1.4, 0]} />
-        <meshStandardMaterial color="#7c3aed" metalness={0.6} roughness={0.2} />
+        <meshStandardMaterial
+          color="#8b5cf6"
+          emissive="#4c1d95"
+          emissiveIntensity={0.6}
+          metalness={0.5}
+          roughness={0.25}
+          flatShading
+        />
       </mesh>
     </Float>
   );
@@ -69,8 +76,9 @@ export default function Hero() {
 
       <div className="h-[320px] md:h-[500px]">
         <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[3, 3, 3]} intensity={1.2} />
+          <ambientLight intensity={1.2} />
+          <directionalLight position={[3, 3, 3]} intensity={3} />
+          <pointLight position={[-3, -2, 2]} intensity={40} color="#38bdf8" />
           <Shape />
           <OrbitControls enableZoom={false} enablePan={false} />
         </Canvas>
