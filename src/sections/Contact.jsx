@@ -1,7 +1,22 @@
-import { useRef, useState } from "react";
+import { lazy, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { AnimatePresence, motion } from "motion/react";
+import SectionTitle from "../components/SectionTitle";
 import { profile } from "../constants";
-import DeveloperIllustration from "../components/DeveloperIllustration";
+import SceneCanvas from "../components/three/SceneCanvas";
+// Loaded on demand so the page text shows before the 3D code arrives
+const ContactScene = lazy(() => import("../components/three/ContactScene"));
+
+const reveal = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const statusMessages = {
+  sent: { text: "Message sent. Thank you!", className: "text-green-400" },
+  wait: { text: "Please wait a moment before sending another message.", className: "text-yellow-300" },
+  error: { text: "Something went wrong. Please email me directly.", className: "text-red-400" },
+};
 
 const COOLDOWN_MS = 30000; // 30 seconds between successful sends
 
@@ -50,22 +65,46 @@ export default function Contact() {
 
   return (
     <section id="contact" className="px-6 py-24 md:px-20">
-      <h2 className="text-3xl font-bold md:text-5xl">Get in touch</h2>
-      <p className="mt-4 max-w-xl text-white/70">
+      <SectionTitle className="">Get in touch</SectionTitle>
+      <motion.p
+        variants={reveal}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="mt-4 max-w-xl text-white/70"
+      >
         Open to AI engineering roles and interesting projects. Send a message or reach me directly.
-      </p>
+      </motion.p>
 
-      <div className="mt-10 grid gap-10 md:grid-cols-2">
-        <div className="space-y-4">
-          <div className="mb-6 flex items-start gap-2">
-            <DeveloperIllustration
-              variant="waving"
-              title="Cartoon developer waving hello"
-              className="w-52 shrink-0 md:w-64"
-            />
-            <div className="relative mt-4 rounded-2xl rounded-bl-sm bg-violet-500/20 px-4 py-3 text-lg font-medium whitespace-nowrap text-white">
-              Let's talk <span aria-hidden="true">👋</span>
-            </div>
+      <motion.div
+        className="mt-10 grid gap-10 md:grid-cols-2"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ staggerChildren: 0.15 }}
+      >
+        <motion.div variants={reveal} className="space-y-4">
+          <div className="relative mb-6">
+            <SceneCanvas className="h-[300px] md:h-[360px]" camera={{ position: [0, 1, 8], fov: 40 }}>
+              <ContactScene />
+            </SceneCanvas>
+            <motion.div
+              initial={{ scale: 0, rotate: -12, opacity: 0 }}
+              whileInView={{ scale: 1, rotate: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.5 }}
+              style={{ transformOrigin: "bottom left" }}
+              className="absolute top-4 right-0 rounded-2xl rounded-bl-sm bg-violet-500/20 px-4 py-3 text-lg font-medium whitespace-nowrap text-white">
+              Let's talk{" "}
+              <motion.span
+                aria-hidden="true"
+                className="inline-block origin-[70%_70%]"
+                animate={{ rotate: [0, 18, -8, 18, 0] }}
+                transition={{ duration: 1.4, repeat: Infinity, repeatDelay: 1.5 }}
+              >
+                👋
+              </motion.span>
+            </motion.div>
           </div>
           <a href={`mailto:${profile.email}`} className="block text-lg hover:underline">
             {profile.email}
@@ -77,9 +116,9 @@ export default function Contact() {
             LinkedIn
           </a>
           <p className="text-white/50">{profile.location}</p>
-        </div>
+        </motion.div>
 
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+        <motion.form variants={reveal} ref={formRef} onSubmit={handleSubmit} className="space-y-4">
           <label htmlFor="from_name" className="sr-only">Your name</label>
           <input
             id="from_name" name="from_name" type="text" placeholder="Your name"
@@ -104,25 +143,33 @@ export default function Contact() {
             className="absolute left-[-9999px] h-0 w-0 opacity-0"
           />
 
-          <button
+          <motion.button
+            whileHover={status === "sending" ? undefined : { scale: 1.04 }}
+            whileTap={status === "sending" ? undefined : { scale: 0.95 }}
             type="submit"
             disabled={status === "sending"}
             className="rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-white/80 disabled:opacity-50"
           >
             {status === "sending" ? "Sending..." : "Send message"}
-          </button>
+          </motion.button>
 
           <div aria-live="polite">
-            {status === "sent" && <p className="text-green-400">Message sent. Thank you!</p>}
-            {status === "wait" && (
-              <p className="text-yellow-300">Please wait a moment before sending another message.</p>
-            )}
-            {status === "error" && (
-              <p className="text-red-400">Something went wrong. Please email me directly.</p>
-            )}
+            <AnimatePresence mode="wait">
+              {statusMessages[status] && (
+                <motion.p
+                  key={status}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  className={statusMessages[status].className}
+                >
+                  {statusMessages[status].text}
+                </motion.p>
+              )}
+            </AnimatePresence>
           </div>
-        </form>
-      </div>
+        </motion.form>
+      </motion.div>
     </section>
   );
 }

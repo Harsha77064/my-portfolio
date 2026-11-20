@@ -2,7 +2,10 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { motion } from "motion/react";
 import { projects } from "../constants";
+import TiltCard from "../components/TiltCard";
+import SectionTitle from "../components/SectionTitle";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -24,13 +27,10 @@ export default function Projects() {
 
   return (
     <section id="projects" ref={root} className="px-6 py-24 md:px-20">
-      <h2 className="mb-12 text-3xl font-bold md:text-5xl">Projects</h2>
+      <SectionTitle>Projects</SectionTitle>
       <div className={`grid gap-6 ${projects.length > 1 ? "md:grid-cols-2" : ""}`}>
         {projects.map((p) => (
-          <article
-            key={p.title}
-            className="project-card flex flex-col rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8"
-          >
+          <TiltCard key={p.title} as="article" className="project-card" innerClassName="p-6 md:p-8">
             <div className="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between">
               <h3 className="text-xl font-semibold md:text-2xl">{p.title}</h3>
               <p className="text-white/60">{p.year}</p>
@@ -40,37 +40,45 @@ export default function Projects() {
 
             <ul className="mt-6 flex flex-wrap gap-2">
               {p.tags.map((t) => (
-                <li key={t} className="rounded-full border border-white/15 px-3 py-1 text-sm text-white/70">
+                <motion.li
+                  key={t}
+                  whileHover={{ y: -3, scale: 1.06 }}
+                  className="rounded-full border border-white/15 px-3 py-1 text-sm text-white/70 transition-colors hover:border-violet-400/60 hover:text-white"
+                >
                   {t}
-                </li>
+                </motion.li>
               ))}
             </ul>
 
             {(p.github || p.live) && (
               <div className="mt-6 flex flex-wrap gap-3">
                 {p.github && (
-                  <a
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     href={p.github}
                     target="_blank"
                     rel="noreferrer"
                     className="rounded-full bg-white px-5 py-2 font-semibold text-black transition hover:bg-white/80"
                   >
                     View code
-                  </a>
+                  </motion.a>
                 )}
                 {p.live && (
-                  <a
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     href={p.live}
                     target="_blank"
                     rel="noreferrer"
                     className="rounded-full border border-white/30 px-5 py-2 font-semibold transition hover:bg-white/10"
                   >
                     Live demo
-                  </a>
+                  </motion.a>
                 )}
               </div>
             )}
-          </article>
+          </TiltCard>
         ))}
       </div>
     </section>

@@ -38,8 +38,77 @@ body {
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 75%);
 }
 
+/* Hero: grid that fades out from the centre */
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, black 20%, transparent 75%);
+}
+
+/* Spotlight beams sweep in from the top-left */
+.spotlight {
+  opacity: 0;
+  animation: spotlight 2s ease 1.2s 1 forwards;
+}
+
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+/* Spinning gradient used by the moving-border cards */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.moving-border {
+  background:
+    linear-gradient(var(--color-ink-soft), var(--color-ink-soft)) padding-box,
+    conic-gradient(from var(--border-angle), transparent 60%, #a78bfa 80%, #38bdf8 90%, transparent) border-box;
+  border: 1.5px solid transparent;
+  animation: border-spin 5s linear infinite;
+}
+
+@keyframes border-spin {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+/* Infinite marquee for the tech-stack tile */
+@keyframes marquee-up {
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.marquee-up {
+  animation: marquee-up 18s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .spotlight {
+    animation: none;
+    opacity: 1;
+    transform: translate(-50%, -40%);
+  }
+
+  .moving-border,
+  .marquee-up {
+    animation: none;
   }
 }

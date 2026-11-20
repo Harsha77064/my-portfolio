@@ -3,6 +3,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { education, certifications } from "../constants";
+import TiltCard from "../components/TiltCard";
+import SectionTitle from "../components/SectionTitle";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -24,21 +26,21 @@ export default function Credentials() {
 
   return (
     <section id="credentials" ref={root} className="px-6 py-24 md:px-20">
-      <h2 className="mb-12 text-3xl font-bold md:text-5xl">Education & Certifications</h2>
+      <SectionTitle>Education & Certifications</SectionTitle>
       <div className="grid gap-6 md:grid-cols-2">
         {education.map((e) => (
-          <div key={e.degree} className="cred-card rounded-2xl border border-white/10 bg-white/5 p-6">
+          <TiltCard key={e.degree} className="cred-card" innerClassName="p-6">
             <p className="text-sm text-white/50">{e.years}</p>
             <h3 className="text-xl font-semibold">{e.degree}</h3>
             <p className="text-white/70">{e.school}</p>
-          </div>
+          </TiltCard>
         ))}
         {certifications.map((c) => (
-          <div key={c.title} className="cred-card rounded-2xl border border-white/10 bg-white/5 p-6">
+          <TiltCard key={c.title} className="cred-card" innerClassName="p-6">
             <p className="text-sm text-white/50">{c.year}</p>
             <h3 className="text-xl font-semibold">{c.title}</h3>
             <p className="text-white/70">{c.detail}</p>
-          </div>
+          </TiltCard>
         ))}
       </div>
     </section>
