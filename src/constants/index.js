@@ -50,6 +50,16 @@ export const experience = [
 
 export const projects = [
   {
+    title: "MatchPoint: AI Resume Matching ATS",
+    role: "Full-Stack Developer",
+    year: "2026",
+    description:
+      "An applicant tracking system with separate HR and candidate portals. It parses PDF resumes, scores them against a job description, and explains every score with matched and missing skills. Applications are routed by an 80% threshold, and nothing is auto-applied without the candidate's consent.",
+    tags: ["React", "FastAPI", "Sentence Transformers", "PyMuPDF", "SQLAlchemy", "Tailwind CSS", "Docker"],
+    github: "https://github.com/Harsha77064/Intelligent-Resume-Matching-AI",
+    live: "",
+  },
+  {
     title: "Production-Grade RAG Chatbot",
     role: "AI Developer",
     year: "2024",
